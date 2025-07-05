@@ -13,6 +13,7 @@ import Cases from "@/pages/cases";
 import Duties from "@/pages/duties";
 import Communication from "@/pages/communication";
 import Reports from "@/pages/reports";
+import Settings from "@/pages/settings";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -33,6 +34,7 @@ function Router() {
           <Route path="/duties" component={Duties} />
           <Route path="/communication" component={Communication} />
           <Route path="/reports" component={Reports} />
+          <Route path="/settings" component={Settings} />
         </>
       )}
       <Route component={NotFound} />

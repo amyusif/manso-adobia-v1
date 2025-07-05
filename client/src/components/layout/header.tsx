@@ -1,43 +1,44 @@
-import { Shield, Bell, Mail } from "lucide-react";
+import { Bell, Mail, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
+import { useState, useEffect } from "react";
 
 export default function Header() {
   const { user } = useAuth();
-  const queryClient = useQueryClient();
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  const logoutMutation = useMutation({
-    mutationFn: async () => {
-      await apiRequest("POST", "/api/auth/logout", {});
-    },
-    onSuccess: () => {
-      localStorage.removeItem('sessionId');
-      queryClient.clear();
-      window.location.href = "/login";
-    },
-  });
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle("dark", savedTheme === "dark");
+    }
+  }, []);
 
-  const handleLogout = () => {
-    logoutMutation.mutate();
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+    <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 px-6 py-4">
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-            <Shield className="text-white h-6 w-6" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              Manso Adubia District Police Command
-            </h1>
-            <p className="text-sm text-gray-600">Command & Control Dashboard</p>
-          </div>
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Manso Adubia District Police Command
+          </h1>
+          <p className="text-sm text-gray-600 dark:text-gray-300">Command & Control Dashboard</p>
         </div>
         <div className="flex items-center space-x-4">
+          <Button variant="ghost" size="icon" onClick={toggleTheme}>
+            {theme === "light" ? (
+              <Moon className="h-5 w-5 text-gray-400" />
+            ) : (
+              <Sun className="h-5 w-5 text-gray-400" />
+            )}
+          </Button>
           <Button variant="ghost" size="icon">
             <Bell className="h-5 w-5 text-gray-400" />
           </Button>
@@ -45,21 +46,13 @@ export default function Header() {
             <Mail className="h-5 w-5 text-gray-400" />
           </Button>
           <div className="text-right">
-            <p className="text-sm font-medium text-gray-900">
+            <p className="text-sm font-medium text-gray-900 dark:text-white">
               {user?.role?.replace("_", " ") || "Personnel"}
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               {user?.firstName || user?.email || "User"}
             </p>
           </div>
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={handleLogout}
-            disabled={logoutMutation.isPending}
-          >
-            {logoutMutation.isPending ? "Logging out..." : "Logout"}
-          </Button>
         </div>
       </div>
     </header>

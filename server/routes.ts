@@ -102,6 +102,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ message: "Logged out successfully" });
   });
 
+  app.put('/api/auth/profile', isAuthenticated, async (req: any, res) => {
+    try {
+      const { firstName, lastName, email, profileImageUrl } = req.body;
+      const userId = req.userId;
+      
+      const updatedUser = await storage.updateUser(userId, {
+        firstName,
+        lastName,
+        email,
+        profileImageUrl,
+      });
+      
+      res.json({ ...updatedUser, password: undefined });
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      res.status(500).json({ message: "Failed to update profile" });
+    }
+  });
+
   // Personnel routes
   app.get('/api/personnel', isAuthenticated, async (req, res) => {
     try {

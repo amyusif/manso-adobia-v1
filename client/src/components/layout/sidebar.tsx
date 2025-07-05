@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
-import { Shield, BarChart3, Users, FileText, Calendar, MessageSquare, ChartBar } from "lucide-react";
+import { Shield, BarChart3, Users, FileText, Calendar, MessageSquare, ChartBar, Settings } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import LogoutModal from "@/components/logout-modal";
 
 export default function Sidebar() {
   const [location] = useLocation();
@@ -13,6 +14,7 @@ export default function Sidebar() {
     { name: "Duties", href: "/duties", icon: Calendar },
     { name: "Communication", href: "/communication", icon: MessageSquare },
     { name: "Reports", href: "/reports", icon: ChartBar },
+    { name: "Settings", href: "/settings", icon: Settings },
   ];
 
   return (
@@ -55,18 +57,22 @@ export default function Sidebar() {
         </ul>
       </nav>
       
-      <div className="p-4 border-t border-gray-600">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-            <span className="text-white text-sm font-bold">
-              {user?.firstName?.charAt(0) || user?.email?.charAt(0) || "U"}
-            </span>
-          </div>
-          <div>
-            <p className="text-sm font-medium">
-              {user?.firstName || user?.email || "User"}
-            </p>
-            <p className="text-xs text-gray-400">{user?.role || "Personnel"}</p>
+      <div className="p-4 space-y-3">
+        <LogoutModal />
+        
+        <div className="pt-3 border-t border-gray-600">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+              <span className="text-white text-sm font-bold">
+                {user?.firstName?.charAt(0) || user?.email?.charAt(0) || "U"}
+              </span>
+            </div>
+            <div>
+              <p className="text-sm font-medium">
+                {user?.firstName || user?.email || "User"}
+              </p>
+              <p className="text-xs text-gray-400">{user?.role || "Personnel"}</p>
+            </div>
           </div>
         </div>
       </div>
