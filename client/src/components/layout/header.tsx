@@ -1,9 +1,27 @@
 import { Shield, Bell, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function Header() {
   const { user } = useAuth();
+  const queryClient = useQueryClient();
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/auth/logout", {});
+    },
+    onSuccess: () => {
+      localStorage.removeItem('sessionId');
+      queryClient.clear();
+      window.location.href = "/login";
+    },
+  });
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
@@ -37,9 +55,10 @@ export default function Header() {
           <Button 
             variant="outline" 
             size="sm"
-            onClick={() => window.location.href = '/api/logout'}
+            onClick={handleLogout}
+            disabled={logoutMutation.isPending}
           >
-            Logout
+            {logoutMutation.isPending ? "Logging out..." : "Logout"}
           </Button>
         </div>
       </div>
