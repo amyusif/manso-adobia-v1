@@ -7,9 +7,10 @@ import { apiRequest } from "@/lib/queryClient";
 
 interface LogoutModalProps {
   trigger?: React.ReactNode;
+  collapsed?: boolean;
 }
 
-export default function LogoutModal({ trigger }: LogoutModalProps) {
+export default function LogoutModal({ trigger, collapsed = false }: LogoutModalProps) {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
 
@@ -35,10 +36,13 @@ export default function LogoutModal({ trigger }: LogoutModalProps) {
         {trigger || (
           <Button 
             variant="ghost" 
-            className="w-full flex items-center space-x-3 px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg"
+            className={`flex items-center text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg ${
+              collapsed ? 'w-8 h-8 p-2 justify-center' : 'w-full space-x-3 px-3 py-2'
+            }`}
+            title={collapsed ? "Logout" : undefined}
           >
-            <LogOut className="w-5 h-5" />
-            <span>Logout</span>
+            <LogOut className="w-5 h-5 flex-shrink-0" />
+            {!collapsed && <span>Logout</span>}
           </Button>
         )}
       </AlertDialogTrigger>

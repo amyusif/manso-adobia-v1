@@ -12,8 +12,7 @@ import { Camera, Save } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { apiRequest } from "@/lib/queryClient";
-import Header from "@/components/layout/header";
-import Sidebar from "@/components/layout/sidebar";
+import AppLayout from "@/components/layout/app-layout";
 
 const profileSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -79,12 +78,8 @@ export default function Settings() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      <Sidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <Header />
-        <main className="flex-1 overflow-y-auto p-6">
-          <div className="max-w-2xl mx-auto">
+    <AppLayout>
+      <div className="max-w-2xl mx-auto">
             <div className="mb-6">
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Settings</h1>
               <p className="text-gray-600 dark:text-gray-300">Manage your profile and preferences</p>
@@ -246,8 +241,6 @@ export default function Settings() {
               </CardContent>
             </Card>
           </div>
-        </main>
-      </div>
-    </div>
+    </AppLayout>
   );
 }
