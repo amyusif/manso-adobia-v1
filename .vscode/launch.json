@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Server",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/index.ts",
+      "env": {
+        "NODE_ENV": "development",
+        "DATABASE_URL": "${env:DATABASE_URL}",
+        "SESSION_SECRET": "${env:SESSION_SECRET}"
+      },
+      "runtimeArgs": ["-r", "tsx/register"],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "restart": true,
+      "killBehavior": "forceful"
+    },
+    {
+      "name": "Debug Server",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/index.ts",
+      "env": {
+        "NODE_ENV": "development",
+        "DATABASE_URL": "${env:DATABASE_URL}",
+        "SESSION_SECRET": "${env:SESSION_SECRET}"
+      },
+      "runtimeArgs": ["-r", "tsx/register", "--inspect"],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "restart": true
+    }
+  ]
+}

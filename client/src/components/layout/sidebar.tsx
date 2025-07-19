@@ -54,20 +54,18 @@ export default function Sidebar({ expanded }: SidebarProps) {
             
             return (
               <li key={item.name}>
-                <Link href={item.href}>
-                  <a
-                    className={`flex items-center px-3 py-2 rounded-lg transition-colors ${
-                      expanded ? "space-x-3" : "justify-center"
-                    } ${
-                      isActive
-                        ? "bg-blue-600 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                    }`}
-                    title={!expanded ? item.name : undefined}
-                  >
-                    <Icon className="w-5 h-5 flex-shrink-0" />
-                    {expanded && <span>{item.name}</span>}
-                  </a>
+                <Link href={item.href} 
+                  className={`flex items-center px-3 py-2 rounded-lg transition-colors ${
+                    expanded ? "space-x-3" : "justify-center"
+                  } ${
+                    isActive
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                  }`}
+                  title={!expanded ? item.name : undefined}
+                >
+                  <Icon className="w-5 h-5 flex-shrink-0" />
+                  {expanded && <span>{item.name}</span>}
                 </Link>
               </li>
             );
