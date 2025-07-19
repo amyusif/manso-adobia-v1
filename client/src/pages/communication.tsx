@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
-import Sidebar from "@/components/layout/sidebar";
-import Header from "@/components/layout/header";
+import AppLayout from "@/components/layout/app-layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -112,13 +111,7 @@ export default function Communication() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      <Sidebar />
-      
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <Header />
-        
-        <main className="flex-1 overflow-y-auto p-6">
+    <AppLayout>
           <div className="mb-6">
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-2xl font-bold text-gray-900">Communication Center</h1>
@@ -349,8 +342,6 @@ export default function Communication() {
               )}
             </TabsContent>
           </Tabs>
-        </main>
-      </div>
-    </div>
+    </AppLayout>
   );
 }
