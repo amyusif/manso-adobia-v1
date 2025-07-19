@@ -134,6 +134,7 @@ The application uses a comprehensive database schema with the following main ent
 
 ```
 Changelog:
+- July 19, 2025. Migration to Replit completed - Set up PostgreSQL database, applied migrations, created default user accounts, fixed login component issues
 - July 05, 2025. Initial setup
 ```
 

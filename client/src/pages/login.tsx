@@ -75,6 +75,12 @@ export default function Login() {
           <p className="mt-2 text-sm text-gray-600">
             Sign in to access the command center
           </p>
+          <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+            <p className="text-xs text-blue-700 font-medium">Demo Accounts:</p>
+            <p className="text-xs text-blue-600">admin@police.gov.gh / password123</p>
+            <p className="text-xs text-blue-600">commander@police.gov.gh / password123</p>
+            <p className="text-xs text-blue-600">officer@police.gov.gh / password123</p>
+          </div>
         </div>
 
         <Card>
@@ -133,10 +139,8 @@ export default function Login() {
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-600">
                 Don't have an account?{" "}
-                <Link href="/signup">
-                  <a className="font-medium text-blue-600 hover:text-blue-500">
-                    Sign up here
-                  </a>
+                <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+                  Sign up here
                 </Link>
               </p>
             </div>
